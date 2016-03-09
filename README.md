@@ -7,7 +7,7 @@
 
 ### API 초기화
 CoolSMS 계정 정보를 통해 [Authentication](http://www.coolsms.co.kr/REST_API#Authentication)을 제공합니다.
-```
+```CSharp
 var api = new SmsApi(new SmsApiOptions
 {
     ApiKey = "{your API Key}",
@@ -20,7 +20,7 @@ API 클라이언트는 동일한 설정일 경우 하나의 인스턴스를 전�
 
 ### 문자 메시지 전송
 [POST Send API](http://www.coolsms.co.kr/SMS_API#POSTsend) 기능을 구현합니다.
-```
+```CSharp
 var request = new SendMessageRequest("01000000000", "헬로 메시지");
 var response = await api.SendMessageAsync(request);
 if (response.Code == ResponseCode.OK)
@@ -32,7 +32,7 @@ if (response.Code == ResponseCode.OK)
 
 ### 문자 메시지의 목록 조회
 [GET Sent API](http://www.coolsms.co.kr/SMS_API#GETsent) 기능을 구현합니다.
-```
+```CSharp
 var request = new GetMessageRequest
 {
   GroupId = "{SendMessageResponse.GroupId}"
@@ -56,7 +56,7 @@ else
 
 ### 테스트 전송
 `Mode`를 `test`로 설정하여 실제로 통신사를 거쳐서 전송하지 않고 시뮬레이션만 수행합니다. 수신자는 자동으로 `01000000000`로 설정됩니다.
-```
+```CSharp
 var request = SendMessageRequest.CraeteTest("테스트메시지");
 var response = await api.SendMessageAsync(request);
 if (response.Code == ResponseCode.OK)
