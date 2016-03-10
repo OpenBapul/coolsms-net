@@ -1,0 +1,2 @@
+skip_commits:
+  message: /((Update|Create) .*\.(md|png|jpg|jpeg|bmp|gif))|Create appveyor.yml/
