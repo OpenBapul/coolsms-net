@@ -29,17 +29,16 @@ API 클라이언트는 동일한 설정일 경우 하나의 인스턴스를 전�
 [POST Send API](http://www.coolsms.co.kr/SMS_API#POSTsend) 기능을 구현합니다.
 ```CSharp
 var request = new SendMessageRequest("01000000000", "헬로 메시지");
-var response = await api.SendMessageAsync(request);
-if (response.Code == ResponseCode.OK)
-{
-  // 성공적인 경우 잠시후 문자 메시지가 도착
-}
+var result = await api.SendMessageAsync(request);
+// 성공적인 경우 잠시후 문자 메시지가 도착
+// result는 반드시 null이 아니며 result.GroupId가 설정되어 있어야 함.
+// 200 OK 외에는 `ResponseException`예외가 발생
 ```
 `SendMessageAsync()`는 전송을 '요청'하는 것이며 `OK`가 되더라도 실제로 전송에 성공했는지 여부는 `GetMessageAsync()`로 조회를 해야 알 수 있습니다.
 
 다음과 같은 숏컷 확장 메서드도 준비되어 있습니다.
 ```
-var response = await api.SendMessageAsync("01000000000", "헬로 뭐시기");
+var result = await api.SendMessageAsync("01000000000", "헬로 뭐시기");
 ```
 
 ### 문자 메시지의 목록 조회
@@ -49,19 +48,9 @@ var request = new GetMessageRequest
 {
   GroupId = "{SendMessageResponse.GroupId}"
 };
-var response = await api.GetMessageAsync(request);
-if (response.Code == ResponseCode.OK)
-{
-  // 조회 조건에 해당하는 메시지가 존재함
-}
-else if (response.Code == ResponseCode.NoSuchMessage)
-{
-  // 조회 조건에 해당하는 메시지가 하나도 없음(오류가 아님)
-}
-else
-{
-  // 오류 처리.
-}
+var result = await api.GetMessageAsync(request);
+// 마찬가지로 정상적인 경우 null이 아니며,
+// 오류가 발생한 경우 예외를 던집니다.
 ```
 `SendMessageAsync()`로 전송한 직후 `GetMessageAsync()`를 해보면 결과가 존재하지 않을 가능성이 있습니다.
 따라서 전송 결과를 업데이트할 때에는 임의의 타임아웃 시간을 정해놓고 주기적으로 재시도를 해야합니다.
@@ -70,15 +59,15 @@ else
 `Mode`를 `test`로 설정하여 실제로 통신사를 거쳐서 전송하지 않고 시뮬레이션만 수행합니다. 수신자는 자동으로 `01000000000`로 설정됩니다.
 ```CSharp
 var request = SendMessageRequest.CraeteTest("테스트메시지");
-var response = await api.SendMessageAsync(request);
-if (response.Code == ResponseCode.OK)
-{
-    ///
-}
+var result = await api.SendMessageAsync(request);
+```
+또는
+```
+var result = await api.SendTestMessageAsync(request);
 ```
 테스트 전송도 `GetMessageAsync()`로 조회를 할 수 있습니다.
 
 다음과 같이 `GroupId`에 대한 숏컷 확장 메서드도 준비되어 있습니다.
 ```
-var response = await api.GetMessagesAsync("group-id-in-the-result");
+var result = await api.GetMessagesAsync("group-id-in-the-result");
 ```
