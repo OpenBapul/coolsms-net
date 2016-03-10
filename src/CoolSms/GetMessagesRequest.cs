@@ -1,10 +1,6 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
 
 namespace CoolSms
 {
@@ -12,7 +8,7 @@ namespace CoolSms
     /// 발송된 문자메시지의 목록을 가져옵니다. 
     /// </summary>
     /// <see cref="http://www.coolsms.co.kr/SMS_API#GETsent"/>
-    public class GetMessagesRequest : Request
+    public class GetMessagesRequest : QueryStringRequest
     {
         public const string ResourceUrl = "https://api.coolsms.co.kr/sms/1.5/sent";
 
@@ -77,36 +73,5 @@ namespace CoolSms
         /// </summary>
         [JsonProperty(PropertyName = "gid")]
         public string GroupId { get; set; }
-
-        public override HttpRequestMessage GetHttpRequest(Authentication authentication)
-        {
-            if (authentication == null)
-            {
-                throw new ArgumentNullException(nameof(authentication));
-            }
-
-            var authPayload = JObject.FromObject(authentication);
-            var payload = JObject.FromObject(this);
-            var query = new Dictionary<string, string>();
-
-            var content = new MultipartFormDataContent();
-            foreach (var item in authPayload)
-            {
-                if (item.Value.Type != JTokenType.Null)
-                {
-                    query[item.Key] = item.Value.Value<string>();
-                }
-            }
-            foreach (var item in payload)
-            {
-                if (item.Value.Type != JTokenType.Null)
-                {
-                    query[item.Key] = item.Value.Value<string>();
-                }
-            }
-            var uriBuilder = new UriBuilder(RequestUri);
-            uriBuilder.Query = string.Join("&", query.Select(q => $"{q.Key}={q.Value}"));
-            return new HttpRequestMessage(HttpMethod, uriBuilder.Uri);
-        }
     }
 }

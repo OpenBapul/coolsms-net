@@ -15,7 +15,7 @@ namespace CoolSms
     /// 인코딩은 항상 utf8을 사용합니다.
     /// </remarks>
     /// <see cref="http://www.coolsms.co.kr/SMS_API#Parameters"/>
-    public class SendMessageRequest : Request
+    public class SendMessageRequest : MultipartFormDataRequest
     {
         /// <summary>
         /// 요청 주소(v1.5)

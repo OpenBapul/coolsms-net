@@ -12,7 +12,7 @@ namespace CoolSmsTests
 {
     public class RequestTest
     {
-        public class RequestImpl : Request
+        public class RequestImpl : MultipartFormDataRequest
         {
             protected override HttpMethod HttpMethod => HttpMethod.Post;
             protected override Uri RequestUri => new Uri("http://api.dummy.com");

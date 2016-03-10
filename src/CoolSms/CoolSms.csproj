@@ -46,6 +46,8 @@
     <Compile Include="FileEncoding.cs" />
     <Compile Include="GetMessagesRequest.cs" />
     <Compile Include="GetMessagesResponse.cs" />
+    <Compile Include="MultipartFormDataRequest.cs" />
+    <Compile Include="QueryStringRequest.cs" />
     <Compile Include="ResponseException.cs" />
     <Compile Include="IRequest.cs" />
     <Compile Include="MessageStatus.cs" />
