@@ -7,7 +7,7 @@
 
 ## Status
 
-[![Build status](https://ci.appveyor.com/api/projects/status/vrmer2hympk7f5kd/branch/master?svg=true)](https://ci.appveyor.com/project/incombine/coolsms-net/branch/master)
+[![Build status](https://ci.appveyor.com/api/projects/status/vrmer2hympk7f5kd?svg=true)](https://ci.appveyor.com/project/incombine/coolsms-net)
 
 ## QuickStart
 
