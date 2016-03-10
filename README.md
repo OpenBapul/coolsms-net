@@ -55,6 +55,11 @@ var result = await api.GetMessageAsync(request);
 `SendMessageAsync()`로 전송한 직후 `GetMessageAsync()`를 해보면 결과가 존재하지 않을 가능성이 있습니다.
 따라서 전송 결과를 업데이트할 때에는 임의의 타임아웃 시간을 정해놓고 주기적으로 재시도를 해야합니다.
 
+다음과 같이 `GroupId`에 대한 숏컷 확장 메서드도 준비되어 있습니다.
+```
+var result = await api.GetMessagesAsync("group-id-in-the-result");
+```
+
 ### 테스트 전송
 `Mode`를 `test`로 설정하여 실제로 통신사를 거쳐서 전송하지 않고 시뮬레이션만 수행합니다. 수신자는 자동으로 `01000000000`로 설정됩니다.
 ```CSharp
@@ -66,8 +71,3 @@ var result = await api.SendMessageAsync(request);
 var result = await api.SendTestMessageAsync(request);
 ```
 테스트 전송도 `GetMessageAsync()`로 조회를 할 수 있습니다.
-
-다음과 같이 `GroupId`에 대한 숏컷 확장 메서드도 준비되어 있습니다.
-```
-var result = await api.GetMessagesAsync("group-id-in-the-result");
-```
