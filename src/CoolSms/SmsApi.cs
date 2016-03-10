@@ -94,10 +94,10 @@ namespace CoolSms
         }
 
         /// <summary>
-        /// 주어진 정보로 문자 메시지 전송을 요청하고 결과를 반환합니다.
+        /// 주어진 정보로 문자 메시지 전송을 요청하고 결과 응답 정보를 반환합니다.
         /// </summary>
         /// <param name="request">문자 메시지 전송 요청 정보</param>
-        /// <returns>전송 요청 결과</returns>
+        /// <returns>전송 요청 결과 응답 정보</returns>
         public async Task<Response<SendMessageResponse>> SendMessageAsync(SendMessageRequest request)
         {
             if (request == null)
@@ -117,10 +117,10 @@ namespace CoolSms
         }
 
         /// <summary>
-        /// 주어진 정보에 해당하는 문자 메시지의 목록 정보를 반환합니다.
+        /// 주어진 정보에 해당하는 문자 메시지의 목록 응답 정보를 반환합니다.
         /// </summary>
         /// <param name="request">문자 메시지 조회 조건</param>
-        /// <returns>문자 메시지의 목록 정보</returns>
+        /// <returns>문자 메시지의 목록 응답 정보</returns>
         public async Task<Response<GetMessagesResponse>> GetMessagesAsync(GetMessagesRequest request)
         {
             if (request == null)

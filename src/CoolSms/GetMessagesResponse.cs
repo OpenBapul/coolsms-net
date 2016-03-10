@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CoolSms
 {
@@ -32,7 +33,7 @@ namespace CoolSms
         /// 현재 페이지의 메시지 목록
         /// </summary>
         [JsonProperty(PropertyName = "data")]
-        public IEnumerable<MessageResponse> Messages { get; set; }
+        public IEnumerable<MessageResponse> Messages { get; set; } = Enumerable.Empty<MessageResponse>();
 
         /// <summary>
         /// 메시지 하나의 정보
