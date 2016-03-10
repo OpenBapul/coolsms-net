@@ -26,8 +26,8 @@ namespace CoolSmsTests
         {
             var sut = GetSut();
             var request = SendMessageRequest.CraeteTest("공부해라. 두 번 해라. abcd가나다あえい");
-            var response = await sut.SendMessageAsync(request);
-            Assert.Equal(ResponseCode.OK, response.Code);
+            var result = await sut.SendMessageAsync(request);
+            Assert.NotNull(result.GroupId);
         }
         
         //[Fact]
@@ -35,17 +35,16 @@ namespace CoolSmsTests
         {
             var sut = GetSut();
             var sendRequest = SendMessageRequest.CraeteTest("공부해라. 두 번 해라. abcd가나다あえい");
-            var sendResponse = await sut.SendMessageAsync(sendRequest);
+            var sendResult = await sut.SendMessageAsync(sendRequest);
 
             var getRequest = new GetMessagesRequest
             {
-                GroupId = sendResponse.Result.GroupId
+                GroupId = sendResult.GroupId
             };
-            var getResponse = await sut.GetMessagesAsync(getRequest);
+            var getResult = await sut.GetMessagesAsync(getRequest);
             // send가 정상적으로 등록되었어도 곧바로 조회하면 404 Not Found를 반환할 가능성이 있음.
             // 일관성 있는 테스트 불가능.
-            Assert.True(getResponse.StatusCode == HttpStatusCode.OK
-                || getResponse.StatusCode == HttpStatusCode.NotFound);
+            Assert.NotNull(getResult);
         }
     }
 }

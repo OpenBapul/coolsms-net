@@ -21,6 +21,10 @@ namespace CoolSms
         /// 요청 주소(v1.5)
         /// </summary>
         public const string ResourceUrl = "https://api.coolsms.co.kr/sms/1.5/send";
+        /// <summary>
+        /// 테스트시 수신 번호
+        /// </summary>
+        public const string TestRecipient = "01000000000";
 
         private static readonly int MaximumTextBytes = 2000;
         private static readonly int MaximumRecepients = 1000;
@@ -33,7 +37,7 @@ namespace CoolSms
         /// <returns>메시지 전송 요청</returns>
         public static SendMessageRequest CraeteTest(string text)
         {
-            var request = new SendMessageRequest("01000000000", text);
+            var request = new SendMessageRequest(TestRecipient, text);
             request.IsTestMode = true;
             return request;
         }

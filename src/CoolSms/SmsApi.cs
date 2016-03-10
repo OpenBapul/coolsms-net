@@ -66,39 +66,41 @@ namespace CoolSms
         /// <typeparam name="TResponse">응답 형식</typeparam>
         /// <param name="request">요청</param>
         /// <returns>응답 결과</returns>
-        /// <exception cref="HttpResponseException">
-        /// CoolSMS에서 200 OK외의 응답 코드를 수신하였을 때 발생합니다.
+        /// <exception cref="ResponseException">
+        /// CoolSMS에서 200 OK 또는 404 Not Found외의 응답 코드를 수신하였을 때 발생합니다.
         /// </exception>
-        public virtual async Task<Response<TResponse>> RequestAsync<TResponse>(IRequest request)
+        /// <remarks>
+        /// 일반적으로 HTTP에서 404 Not Found는 해당 엔드포인트의 리소스가 존재하지 않을 때를 말합니다.
+        /// 그러나 CoolSMS API에서는 목록이 비어 있어도 404가 나오므로 이것은 정상으로 처리하고 null을 반환합니다.
+        /// </remarks>
+        public virtual async Task<TResponse> RequestAsync<TResponse>(IRequest request)
             where TResponse : class
         {
             var message = request.GetHttpRequest(GetAuthentication());
             var response = await client.SendAsync(message);
             var json = await response.Content.ReadAsStringAsync();
 
-            var result = new Response<TResponse>
-            {
-                StatusCode = response.StatusCode,
-            };
-
             if (response.StatusCode == HttpStatusCode.OK)
             {
-                result.Result = JsonConvert.DeserializeObject<TResponse>(json);
+                return JsonConvert.DeserializeObject<TResponse>(json);
             }
             else
             {
                 var error = JsonConvert.DeserializeObject<ErrorResponse>(json);
-                result.Code = error.Code;
+                if (error.Code != ResponseCode.NoSuchMessage)
+                {
+                    throw new ResponseException(response.StatusCode, error.Code, error.Message);
+                }
             }
-            return result;
+            return null;
         }
 
         /// <summary>
-        /// 주어진 정보로 문자 메시지 전송을 요청하고 결과 응답 정보를 반환합니다.
+        /// 주어진 정보로 문자 메시지 전송을 요청하고 결과를 반환합니다.
         /// </summary>
-        /// <param name="request">문자 메시지 전송 요청 정보</param>
-        /// <returns>전송 요청 결과 응답 정보</returns>
-        public async Task<Response<SendMessageResponse>> SendMessageAsync(SendMessageRequest request)
+        /// <param name="request">문자 메시지 전송 요청 결과</param>
+        /// <returns>전송 요청 결과</returns>
+        public async Task<SendMessageResponse> SendMessageAsync(SendMessageRequest request)
         {
             if (request == null)
             {
@@ -110,24 +112,27 @@ namespace CoolSms
             }
             return await RequestAsync<SendMessageResponse>(request);
         }
-
-        private class GetState
-        {
-            public GetMessagesResponse Response { get; set; }
-        }
-
+        
         /// <summary>
-        /// 주어진 정보에 해당하는 문자 메시지의 목록 응답 정보를 반환합니다.
+        /// 주어진 정보에 해당하는 문자 메시지의 조회 결과를 반환합니다.
         /// </summary>
         /// <param name="request">문자 메시지 조회 조건</param>
-        /// <returns>문자 메시지의 목록 응답 정보</returns>
-        public async Task<Response<GetMessagesResponse>> GetMessagesAsync(GetMessagesRequest request)
+        /// <returns>문자 메시지의 조회 결과</returns>
+        /// <remarks>
+        /// 결과가 없더라도 빈 목록을 포함하는 정보를 반환합니다.
+        /// </remarks>
+        public async Task<GetMessagesResponse> GetMessagesAsync(GetMessagesRequest request)
         {
             if (request == null)
             {
                 throw new ArgumentNullException(nameof(request));
             }
-            return await RequestAsync<GetMessagesResponse>(request);
+            return (await RequestAsync<GetMessagesResponse>(request))
+                ?? new GetMessagesResponse
+                {
+                    PageSize = request.Count,
+                    Page = request.Page,
+                };
         }
 
         public void Dispose()
@@ -140,6 +145,8 @@ namespace CoolSms
             [JsonProperty("code")]
             [JsonConverter(typeof(StringEnumConverter))]
             public ResponseCode Code { get; set; }
+            [JsonProperty("message")]
+            public string Message { get; set; }
         }
     }
 }

@@ -18,17 +18,17 @@ namespace CoolSms
 
         protected override HttpMethod HttpMethod { get; } = HttpMethod.Get;
         protected override Uri RequestUri { get; } = new Uri(ResourceUrl, UriKind.Absolute);
-        
+
         /// <summary>
         /// 기본값 20이며 20개의 목록을 받을 수 있음. 40입력시 40개의 목록이 리턴
         /// </summary>
         [JsonProperty(PropertyName = "count")]
-        public int Count { get; set; }
+        public int Count { get; set; } = 20;
         /// <summary>
         /// 1부터 시작하는 페이지값
         /// </summary>
         [JsonProperty(PropertyName = "page")]
-        public int Page { get; set; }
+        public int Page { get; set; } = 1;
         /// <summary>
         /// 수신번호로 검색
         /// </summary>
