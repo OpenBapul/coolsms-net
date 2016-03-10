@@ -28,7 +28,7 @@ namespace CoolSms
         /// </remarks>
         /// <param name="groupId">전송 요청할 때 받은 전송 그룹 ID</param>
         /// <returns>전송 기록(메시지의 목록)</returns>
-        public static async Task<Response<GetMessagesResponse>> GetMessageAsync(this SmsApi api, string groupId)
+        public static async Task<Response<GetMessagesResponse>> GetMessagesAsync(this SmsApi api, string groupId)
         {
             return await api.GetMessagesAsync(new GetMessagesRequest
             {
