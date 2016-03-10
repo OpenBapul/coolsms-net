@@ -37,6 +37,11 @@ if (response.Code == ResponseCode.OK)
 ```
 `SendMessageAsync()`는 전송을 '요청'하는 것이며 `OK`가 되더라도 실제로 전송에 성공했는지 여부는 `GetMessageAsync()`로 조회를 해야 알 수 있습니다.
 
+다음과 같은 숏컷 확장 메서드도 준비되어 있습니다.
+```
+var response = await api.SendMessageAsync("01000000000", "헬로 뭐시기");
+```
+
 ### 문자 메시지의 목록 조회
 [GET Sent API](http://www.coolsms.co.kr/SMS_API#GETsent) 기능을 구현합니다.
 ```CSharp
@@ -73,3 +78,7 @@ if (response.Code == ResponseCode.OK)
 ```
 테스트 전송도 `GetMessageAsync()`로 조회를 할 수 있습니다.
 
+다음과 같이 `GroupId`에 대한 숏컷 확장 메서드도 준비되어 있습니다.
+```
+var response = await api.GetMessagesAsync("group-id-in-the-result");
+```
