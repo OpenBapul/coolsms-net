@@ -7,10 +7,12 @@
 
 ## Status
 
-[![Build status](https://ci.appveyor.com/api/projects/status/6w7218b7r43wlhvp/branch/master?svg=true)](https://ci.appveyor.com/project/incombine/coolsms-net/branch/master)
-
+[![Build status](https://ci.appveyor.com/api/projects/status/vrmer2hympk7f5kd/branch/master?svg=true)](https://ci.appveyor.com/project/incombine/coolsms-net/branch/master)
 
 ## QuickStart
+
+### Nuget
+> `Install-Package CoolSms`
 
 ### API 초기화
 CoolSMS 계정 정보를 통해 [Authentication](http://www.coolsms.co.kr/REST_API#Authentication)을 제공합니다.
