@@ -58,6 +58,7 @@
     <Compile Include="SendMessageRequest.cs" />
     <Compile Include="SendMessageResponse.cs" />
     <Compile Include="SmsApi.cs" />
+    <Compile Include="SmsApiExtensions.cs" />
     <Compile Include="SmsApiOptions.cs" />
   </ItemGroup>
   <ItemGroup>
