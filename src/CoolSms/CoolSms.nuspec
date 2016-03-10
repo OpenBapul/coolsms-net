@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>CoolSms</id>
-    <version>1.0.0</version>
+    <version>$version$</version>
     <authors>gongdo</authors>
     <owners>gongdo</owners>
     <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
