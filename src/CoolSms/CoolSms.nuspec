@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>CoolSms</id>
+    <version>1.0.0</version>
+    <authors>gongdo</authors>
+    <owners>gongdo</owners>
+    <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
+    <projectUrl>https://github.com/OpenBapul/coolsms-net/</projectUrl>
+    <iconUrl>https://www.bapul.net/images/smartbanner/Icon@2x(iOS7-8).png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>CoolSms SMS API의 닷넷 클라이언트</description>
+    <releaseNotes>기초 기능 구현.</releaseNotes>
+    <copyright>Copyright 2016</copyright>
+    <tags>CoolSms Bapul</tags>
+    <dependencies>
+      <dependency id="Newtonsoft.Json" version="8.0.2" />
+      <dependency id="PCLCrypto" version="1.0.86" />
+    </dependencies>
+  </metadata>
+</package>
