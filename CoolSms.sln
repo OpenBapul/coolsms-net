@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoolSms.Portable", "src\CoolSms.Portable\CoolSms.Portable.csproj", "{A389B42F-7A61-417A-8C5A-3F31DEC76DC0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoolSms", "src\CoolSms\CoolSms.csproj", "{A389B42F-7A61-417A-8C5A-3F31DEC76DC0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoolSmsTests", "test\CoolSmsTests\CoolSmsTests.csproj", "{E6AE24CD-593E-40CE-B0A9-64B089F87FE5}"
 EndProject

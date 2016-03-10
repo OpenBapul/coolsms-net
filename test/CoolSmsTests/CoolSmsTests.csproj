@@ -98,9 +98,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\CoolSms.Portable\CoolSms.Portable.csproj">
+    <ProjectReference Include="..\..\src\CoolSms\CoolSms.csproj">
       <Project>{a389b42f-7a61-417a-8c5a-3f31dec76dc0}</Project>
-      <Name>CoolSms.Portable</Name>
+      <Name>CoolSms</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>
