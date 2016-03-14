@@ -7,12 +7,21 @@ namespace CoolSms
     /// <summary>
     /// 발송된 문자메시지의 목록을 가져옵니다. 
     /// </summary>
-    /// <see cref="http://www.coolsms.co.kr/SMS_API#GETsent"/>
+    /// <see href="http://www.coolsms.co.kr/SMS_API#GETsent"/>
     public class GetMessagesRequest : QueryStringRequest
     {
+        /// <summary>
+        /// CoolSMS sent API end-point
+        /// </summary>
         public const string ResourceUrl = "https://api.coolsms.co.kr/sms/1.5/sent";
 
+        /// <summary>
+        /// HttpMethod
+        /// </summary>
         protected override HttpMethod HttpMethod { get; } = HttpMethod.Get;
+        /// <summary>
+        /// API Uri
+        /// </summary>
         protected override Uri RequestUri { get; } = new Uri(ResourceUrl, UriKind.Absolute);
 
         /// <summary>

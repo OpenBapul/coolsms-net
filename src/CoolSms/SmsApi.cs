@@ -135,16 +135,28 @@ namespace CoolSms
                 };
         }
 
+        /// <summary>
+        /// 리소스를 해제합니다.
+        /// </summary>
         public void Dispose()
         {
             client.Dispose();
         }
 
+        /// <summary>
+        /// 오류 응답 정보
+        /// </summary>
         public class ErrorResponse
         {
+            /// <summary>
+            /// 오류 응답 코드
+            /// </summary>
             [JsonProperty("code")]
             [JsonConverter(typeof(StringEnumConverter))]
             public ResponseCode Code { get; set; }
+            /// <summary>
+            /// 오류 메시지
+            /// </summary>
             [JsonProperty("message")]
             public string Message { get; set; }
         }

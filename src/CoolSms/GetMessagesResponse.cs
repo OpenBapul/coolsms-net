@@ -11,7 +11,7 @@ namespace CoolSms
     /// <remarks>
     /// 제대로 문서화되어 있지 않아 각 필드의 의미를 정확히 파악하기 어렵습니다.
     /// </remarks>
-    /// <see cref="http://www.coolsms.co.kr/SMS_API#GETsent"/>
+    /// <see href="http://www.coolsms.co.kr/SMS_API#GETsent"/>
     public class GetMessagesResponse
     {
         /// <summary>
