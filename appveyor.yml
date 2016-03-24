@@ -20,3 +20,13 @@ deploy:
     secure: sromj9mN3Uv8dh0Lpb+0/ywpACJM6NPxfCJbBL6AxxWcvxacnAGsvUc68T8ptY2+
 skip_commits:
   message: /((Update|Create) .*\.(md|png|jpg|jpeg|bmp|gif))|Create appveyor.yml/
+
+branches:
+  only:
+  - dev
+configuration: Debug
+platform: Any CPU
+before_build:
+- cmd: nuget restore
+skip_commits:
+  message: /((Update|Create) .*\.(md|png|jpg|jpeg|bmp|gif))|Create appveyor.yml/
