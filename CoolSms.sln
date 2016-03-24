@@ -9,6 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoolSmsTests", "test\CoolSm
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6F718F51-F605-43EF-9884-72576BEFAF0F}"
 	ProjectSection(SolutionItems) = preProject
+		appveyor.yml = appveyor.yml
 		NuGet.Config = NuGet.Config
 	EndProjectSection
 EndProject
