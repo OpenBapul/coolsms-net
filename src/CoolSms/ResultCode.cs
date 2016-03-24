@@ -1,7 +1,15 @@
 ﻿namespace CoolSms
 {
+    /// <summary>
+    /// CoolSMS 결과 코드
+    /// </summary>
     public class ResultCode
     {
+        /// <summary>
+        /// 주어진 코드에 대한 메시지를 반환합니다.
+        /// </summary>
+        /// <param name="code">결과 코드</param>
+        /// <returns>메시지</returns>
         public static string GetMessage(string code)
         {
             switch (code)

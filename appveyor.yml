@@ -1,13 +1,12 @@
 version: 1.0.{build}
-skip_commits:
-  message: /((Update|Create) .*\.(md|png|jpg|jpeg|bmp|gif))|Create appveyor.yml/
+branches:
+  only:
+  - master
 configuration: Release
 platform: Any CPU
 before_build:
-- cmd: >-
-    nuget restore
-
-    md artifacts\nuget
+- cmd: nuget restore
+- cmd: md artifacts\nuget
 build:
   verbosity: minimal
 after_build:
@@ -19,3 +18,15 @@ deploy:
 - provider: NuGet
   api_key:
     secure: sromj9mN3Uv8dh0Lpb+0/ywpACJM6NPxfCJbBL6AxxWcvxacnAGsvUc68T8ptY2+
+skip_commits:
+  message: /((Update|Create) .*\.(md|png|jpg|jpeg|bmp|gif))|Create appveyor.yml/
+
+branches:
+  only:
+  - dev
+configuration: Debug
+platform: Any CPU
+before_build:
+- cmd: nuget restore
+skip_commits:
+  message: /((Update|Create) .*\.(md|png|jpg|jpeg|bmp|gif))|Create appveyor.yml/

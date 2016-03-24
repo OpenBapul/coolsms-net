@@ -6,9 +6,17 @@ namespace CoolSms
     /// 전송 접수 결과.
     /// 실제 SMS 전송 여부와 무관한 전송 요청의 접수 결과를 의미합니다.
     /// </summary>
-    /// <see cref="http://www.coolsms.co.kr/SMS_API#Response"/>
+    /// <see href="http://www.coolsms.co.kr/SMS_API#Response"/>
     public class SendMessageResponse
     {
+        /// <summary>
+        /// 전송 접수 결과를 초기화합니다.
+        /// </summary>
+        /// <param name="groupId">그룹 ID</param>
+        /// <param name="successCount">전송한 개수</param>
+        /// <param name="errorCount">오류 개수</param>
+        /// <param name="resultCode">결과 코드</param>
+        /// <param name="resultMessage">결과 메시지</param>
         public SendMessageResponse(
             string groupId, 
             int successCount, 

@@ -3,7 +3,7 @@
     /// <summary>
     /// SMS API의 설정
     /// </summary>
-    /// <see cref="https://www.coolsms.co.kr/index.php?mid=service_setup&act=dispSmsconfigCredentials"/>
+    /// <see href="https://www.coolsms.co.kr/index.php?mid=service_setup&amp;act=dispSmsconfigCredentials"/>
     public class SmsApiOptions
     {
         /// <summary>

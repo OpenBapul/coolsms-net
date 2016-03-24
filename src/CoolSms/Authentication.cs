@@ -17,11 +17,16 @@ namespace CoolSms
     /// 또한 timestamp값이 현재시간에서 15분을 벗어나면 서버쪽에서 RequestTimeTooSkewed 오류코드를 리턴합니다.
     /// 여기에서는 해시 알고리즘은 sha-1을 사용하며 인코딩은 base64를 고정으로 사용합니다.
     /// </remarks>
-    /// <see cref="http://www.coolsms.co.kr/REST_API#Authentication"/>
+    /// <see href="http://www.coolsms.co.kr/REST_API#Authentication"/>
     public class Authentication
     {
         private static readonly DateTime UnixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
+        /// <summary>
+        /// 주어진 정보로 사용자 인증을 초기화 합니다.
+        /// </summary>
+        /// <param name="apiKey">API Key</param>
+        /// <param name="apiSecret">API Secret</param>
         public Authentication(string apiKey, string apiSecret)
             : this(apiKey, 
                   apiSecret, 
@@ -29,6 +34,13 @@ namespace CoolSms
                   DateTime.UtcNow.Ticks.ToString())
         {
         }
+        /// <summary>
+        /// 주어진 정보로 사용자 인증을 초기화 합니다.
+        /// </summary>
+        /// <param name="apiKey">API Key</param>
+        /// <param name="apiSecret">API Secret</param>
+        /// <param name="timestamp">인증 시그니처를 생성할 때 사용하는 타임스탬프</param>
+        /// <param name="salt">인증 시그니처를 생성할 때 사용하는 임의의 문자열(6-30)</param>
         public Authentication(string apiKey, string apiSecret, string timestamp, string salt)
         {
             if (string.IsNullOrEmpty(apiKey))

@@ -14,7 +14,7 @@ namespace CoolSms
     /// <remarks>
     /// 인코딩은 항상 utf8을 사용합니다.
     /// </remarks>
-    /// <see cref="http://www.coolsms.co.kr/SMS_API#Parameters"/>
+    /// <see href="http://www.coolsms.co.kr/SMS_API#Parameters"/>
     public class SendMessageRequest : MultipartFormDataRequest
     {
         /// <summary>
@@ -42,9 +42,20 @@ namespace CoolSms
             return request;
         }
 
+        /// <summary>
+        /// 주어진 정보로 초기화합니다.
+        /// </summary>
+        /// <param name="to">받는 사람 전화번호(, 구분 문자열 허용)</param>
+        /// <param name="text">내용(80바이트 이상은 LMS)</param>
         public SendMessageRequest(string to, string text) : this(to, text, null)
         {
         }
+        /// <summary>
+        /// 주어진 정보로 초기화합니다.
+        /// </summary>
+        /// <param name="to">받는 사람 전화번호(, 구분 문자열 허용)</param>
+        /// <param name="text">내용(80바이트 이상은 LMS)</param>
+        /// <param name="from">보내는 사람 전화번호(반드시 발신자 등록이 되어 있어야 함)</param>
         public SendMessageRequest(string to, string text, string from)
         {
             if (string.IsNullOrEmpty(to))
@@ -70,8 +81,17 @@ namespace CoolSms
             From = from;
         }
 
+        /// <summary>
+        /// HTTP 메서드
+        /// </summary>
         protected override HttpMethod HttpMethod { get; } = HttpMethod.Post;
+        /// <summary>
+        /// CoolSMS send API end-point
+        /// </summary>
         protected override Uri RequestUri { get; } = new Uri(ResourceUrl, UriKind.Absolute);
+        /// <summary>
+        /// 이미지 첨부 스트림
+        /// </summary>
         protected override IReadOnlyDictionary<string, StreamContent> StreamContents
         {
             get
@@ -135,7 +155,7 @@ namespace CoolSms
         /// <summary>
         /// 한국: 82, 일본: 81, 중국: 86, 미국: 1, 기타 등등(기본 한국)
         /// </summary>
-        /// <see cref="http://countrycode.org"/> 참고
+        /// <see href="http://countrycode.org"/> 참고
         [JsonProperty(PropertyName = "country")]
         public string CountryCode { get; set; }
         /// <summary>
@@ -172,6 +192,9 @@ namespace CoolSms
         /// </summary>
         [JsonProperty(PropertyName = "extension")]
         public string ExtensionJson => JsonConvert.SerializeObject(Extensions);
+        /// <summary>
+        /// 확장 정보
+        /// </summary>
         [JsonIgnore]
         public IEnumerable<SendMessageExtension> Extensions { get; set; }
         /// <summary>
@@ -212,10 +235,19 @@ namespace CoolSms
         /// <remarks>
         /// type, country, to, from, datetime, text, subject, delay 가 올 수 있고 입력하지 않는 필드는 상위(기본 필드) 값을 상속 받아 사용됩니다. 단, to는 상속받지 아니하고 필수 입력 사항입니다.
         /// </remarks>
-        /// <see cref="http://www.coolsms.co.kr/SMS_API#Parameters"/>
+        /// <see href="http://www.coolsms.co.kr/SMS_API#Parameters"/>
         public class SendMessageExtension
         {
+            /// <summary>
+            /// 메시지 전송 확장 포맷을 초기화합니다.
+            /// </summary>
+            /// <param name="to">받는 사람 전화번호</param>
             public SendMessageExtension(string to) : this(to, null) { }
+            /// <summary>
+            /// 메시지 전송 확장 포맷을 초기화합니다.
+            /// </summary>
+            /// <param name="to">받는 사람 전화번호</param>
+            /// <param name="text">보낼 내용</param>
             public SendMessageExtension(string to, string text)
             {
                 if (string.IsNullOrEmpty(to))
@@ -260,15 +292,15 @@ namespace CoolSms
             /// <summary>
             /// 한국: 82, 일본: 81, 중국: 86, 미국: 1, 기타 등등(기본 한국)
             /// </summary>
-            /// <see cref="http://countrycode.org"/> 참고
+            /// <see href="http://countrycode.org"/> 참고
             [JsonProperty(PropertyName = "country")]
+            public string CountryCode { get; set; }
             /// <summary>
             /// 예약시간을 YYYYMMDDHHMISS 포맷으로 입력(입력 없거나 지난날짜를 입력하면 바로 전송) 예) 20131216090510 (2013년 12월 16일 9시 5분 10초에 발송되도록 예약)
             /// </summary>
             /// <remarks>
             /// KST 기준
             /// </remarks>
-            public string CountryCode { get; set; }
             [JsonProperty(PropertyName = "datetime")]
             [JsonConverter(typeof(DateTimeFormatConverter))]
             public DateTime? SendAt { get; set; }

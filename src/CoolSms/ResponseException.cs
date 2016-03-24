@@ -8,6 +8,12 @@ namespace CoolSms
     /// </summary>
     public class ResponseException : Exception
     {
+        /// <summary>
+        /// 주어진 정보로 응답 예외를 초기화합니다.
+        /// </summary>
+        /// <param name="statusCode">HTTP 응답코드</param>
+        /// <param name="responseCode">CoolSMS 오류 코드</param>
+        /// <param name="responseMessage">CoolSMS 오류 메시지</param>
         public ResponseException(HttpStatusCode statusCode, ResponseCode responseCode, string responseMessage)
             : base(GetErrorMessage(statusCode, responseCode, responseMessage))
         {

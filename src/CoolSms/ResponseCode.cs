@@ -3,7 +3,7 @@
     /// <summary>
     /// CoolSMS API의 오류 코드
     /// </summary>
-    /// <see cref="http://www.coolsms.co.kr/REST_API#Response"/>
+    /// <see href="http://www.coolsms.co.kr/REST_API#Response"/>
     public enum ResponseCode
     {
         /// <summary>

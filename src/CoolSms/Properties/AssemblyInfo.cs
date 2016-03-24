@@ -7,10 +7,10 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("CoolSms")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("CoolSMS API Client for .Net")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("CoolSms")]
+[assembly: AssemblyCompany("Bapul")]
+[assembly: AssemblyProduct("CoolSms API Client for .Net")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
