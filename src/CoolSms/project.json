@@ -47,10 +47,8 @@
     "net451": {
       "frameworkAssemblies": {
         "System.Runtime.Serialization": "",
-        "System.Security": ""
-      },
-      "dependencies": {
-        "System.Net.Http": "4.0.1-beta-23516"
+        "System.Security": "",
+        "System.Net.Http": ""
       }
     },
     "dotnet5.4": {
