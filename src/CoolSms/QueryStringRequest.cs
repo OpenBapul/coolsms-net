@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 
 namespace CoolSms
@@ -45,8 +44,17 @@ namespace CoolSms
             }
             
             var uriBuilder = new UriBuilder(RequestUri);
-            uriBuilder.Query = string.Join("&", query.Select(q => $"{q.Key}={WebUtility.UrlEncode(q.Value)}"));
+            uriBuilder.Query = string.Join("&", query.Select(q => $"{q.Key}={UrlEncode(q.Value)}"));
             return new HttpRequestMessage(HttpMethod, uriBuilder.Uri);
+        }
+
+        private string UrlEncode(string value)
+        {
+#if NET40
+            return Uri.EscapeUriString(value);
+#else
+            return System.Net.WebUtility.UrlEncode(value);
+#endif
         }
     }
 }

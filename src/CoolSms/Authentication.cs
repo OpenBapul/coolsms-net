@@ -1,7 +1,5 @@
 ﻿using Newtonsoft.Json;
-using PCLCrypto;
 using System;
-using System.Text;
 
 namespace CoolSms
 {
@@ -67,13 +65,11 @@ namespace CoolSms
 
         private static string Hash(string apiSecret, string timestamp, string salt)
         {
-            byte[] keyMaterial = UTF8Encoding.UTF8.GetBytes(apiSecret);
-            byte[] data = UTF8Encoding.UTF8.GetBytes(timestamp + salt);
+            byte[] keyMaterial = System.Text.Encoding.UTF8.GetBytes(apiSecret);
+            byte[] data = System.Text.Encoding.UTF8.GetBytes(timestamp + salt);
 
-            var algorithm = WinRTCrypto.MacAlgorithmProvider.OpenAlgorithm(MacAlgorithm.HmacSha1);
-            CryptographicHash hasher = algorithm.CreateHash(keyMaterial);
-            hasher.Append(data);
-            var mac = hasher.GetValueAndReset();
+            var hmac = new System.Security.Cryptography.HMACSHA1(keyMaterial);
+            var mac = hmac.ComputeHash(data, 0, data.Length);
             return Convert.ToBase64String(mac);
         }
 

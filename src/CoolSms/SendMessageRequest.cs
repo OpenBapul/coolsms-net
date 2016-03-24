@@ -92,7 +92,11 @@ namespace CoolSms
         /// <summary>
         /// 이미지 첨부 스트림
         /// </summary>
+#if NET40
+        protected override IDictionary<string, StreamContent> StreamContents
+#else
         protected override IReadOnlyDictionary<string, StreamContent> StreamContents
+#endif
         {
             get
             {

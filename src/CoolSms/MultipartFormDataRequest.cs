@@ -14,8 +14,13 @@ namespace CoolSms
         /// <summary>
         /// 이 요청에 파일이 포함된 경우 이름과 파일 정보가 포함된 StreamContent를 반환합니다.
         /// </summary>
+#if NET40
+        protected virtual IDictionary<string, StreamContent> StreamContents { get; }
+            = new Dictionary<string, StreamContent>();
+#else
         protected virtual IReadOnlyDictionary<string, StreamContent> StreamContents { get; }
             = new Dictionary<string, StreamContent>();
+#endif
 
         /// <summary>
         /// 주어진 인증 정보로 HTTP 요청 메시지를 작성하여 반환합니다.

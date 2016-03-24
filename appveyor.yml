@@ -1,19 +1,21 @@
 -
-  version: 1.0.{build}
+  version: build{build}
   branches:
     only:
     - master
   configuration: Release
   platform: Any CPU
+  install:
+  - cmd: set PATH=C:\Program Files (x86)\MSBuild\14.0\Bin;%PATH%
+  - cmd: dnvm install 1.0.0-rc1-final
   before_build:
-  - cmd: nuget restore
-  - cmd: md artifacts\nuget
+  - cmd: dnu restore -f https://www.myget.org/F/aspnet-contrib/api/v3/index.json
   build:
     verbosity: minimal
   after_build:
-  - cmd: nuget pack "src\CoolSms\CoolSms.csproj" -Properties "Configuration=Release;Platform=AnyCPU" -IncludeReferencedProjects -Version %APPVEYOR_BUILD_VERSION% -OutputDirectory "artifacts\nuget"
+  - cmd: dnu pack src/CoolSms --configuration Release --out "artifacts/CoolSms"
   artifacts:
-  - path: '**\nuget\*.nupkg'
+  - path: '**\*.nupkg'
     name: NuGet
   deploy:
   - provider: NuGet
@@ -23,7 +25,7 @@
     message: /((Update|Create) .*\.(md|png|jpg|jpeg|bmp|gif))|Create appveyor.yml/
 
 -
-  version: 1.0.{build}
+  version: build{build}-dev
   branches:
     except:
     - master
