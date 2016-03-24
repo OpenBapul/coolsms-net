@@ -12,8 +12,10 @@
   - cmd: dnu restore -f https://www.myget.org/F/aspnet-contrib/api/v3/index.json
   build:
     verbosity: minimal
-  after_build:
-  - cmd: dnu pack src/CoolSms --configuration Release --out "artifacts/CoolSms"
+  test_script:
+  - cmd: dnu restore test -f https://www.myget.org/F/aspnet-contrib/api/v3/index.json
+  - cmd: cd test\CoolSms.Tests
+  - cmd: dnx test
   artifacts:
   - path: '**\*.nupkg'
     name: NuGet
@@ -31,7 +33,16 @@
     - master
   configuration: Debug
   platform: Any CPU
+  install:
+  - cmd: set PATH=C:\Program Files (x86)\MSBuild\14.0\Bin;%PATH%
+  - cmd: dnvm install 1.0.0-rc1-final
   before_build:
-  - cmd: nuget restore
+  - cmd: dnu restore -f https://www.myget.org/F/aspnet-contrib/api/v3/index.json
+  build:
+    verbosity: minimal
+  test_script:
+  - cmd: dnu restore test -f https://www.myget.org/F/aspnet-contrib/api/v3/index.json
+  - cmd: cd test\CoolSms.Tests
+  - cmd: dnx test
   skip_commits:
     message: /((Update|Create) .*\.(md|png|jpg|jpeg|bmp|gif))|Create appveyor.yml/
