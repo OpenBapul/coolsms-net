@@ -1,7 +1,5 @@
-version: 1.0.{build}
-
-# master branch configuration
 -
+  version: 1.0.{build}
   branches:
     only:
     - master
@@ -24,8 +22,8 @@ version: 1.0.{build}
   skip_commits:
     message: /((Update|Create) .*\.(md|png|jpg|jpeg|bmp|gif))|Create appveyor.yml/
 
-# other branches configuration
 -
+  version: 1.0.{build}
   branches:
     except:
     - master
