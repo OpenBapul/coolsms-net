@@ -17,7 +17,7 @@
   - cmd: cd test\CoolSms.Tests
   - cmd: dnx test
   artifacts:
-  - path: '**\*.nupkg'
+  - path: '**\CoolSms\**\*.nupkg'
     name: NuGet
   deploy:
   - provider: NuGet
