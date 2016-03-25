@@ -32,7 +32,9 @@ namespace CoolSms
         /// <param name="text">텍스트</param>
         /// <returns>문자메시지의 길이</returns>
         public static int GetSmsTextLength(string text)
-            => text.Select(c => (int)c).Select(c => c > 127 ? 2 : 1).Sum();
+            => string.IsNullOrEmpty(text)
+            ? 0
+            : text.Select(c => (int)c).Select(c => c > 127 ? 2 : 1).Sum();
         /// <summary>
         /// 주어진 텍스트의 문자메시지 길이에 따라 SMS/LMS를 반환합니다.
         /// </summary>

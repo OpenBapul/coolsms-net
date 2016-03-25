@@ -1,6 +1,6 @@
 ﻿{
   "title": "CoolSMS API .NET Client",
-  "version": "1.0.14-*",
+  "version": "1.0.15-*",
   "description": "CoolSms SMS API의 닷넷 클라이언트",
   "authors": [ "gongdo", "Bapul" ],
   "tags": [ "CoolSms", "Bapul" ],
