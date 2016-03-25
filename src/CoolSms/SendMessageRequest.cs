@@ -3,7 +3,6 @@ using Newtonsoft.Json.Converters;
 using System;
 using System.IO;
 using System.Net.Http;
-using System.Text;
 using System.Collections.Generic;
 
 namespace CoolSms
@@ -66,7 +65,7 @@ namespace CoolSms
             {
                 throw new ArgumentNullException(nameof(text));
             }
-            if (Encoding.UTF8.GetByteCount(text) > MaximumTextBytes)
+            if (MessageTypeUtils.GetSmsTextLength(Text) > MaximumTextBytes)
             {
                 throw new ArgumentOutOfRangeException(nameof(text), $"text should not be longer than {MaximumTextBytes} bytes.");
             }
@@ -135,10 +134,8 @@ namespace CoolSms
         [JsonProperty(PropertyName = "type")]
         [JsonConverter(typeof(StringEnumConverter))]
         public MessageType Type => (ImageFile != null && ImageFile.Length > 0)
-            ? MessageType.MMS
-            : (Encoding.UTF8.GetByteCount(Text) > 80
-            ? MessageType.LMS
-            : MessageType.SMS);
+            ? MessageTypeUtils.GetMessageType(Text)
+            : MessageType.SMS;
         /// <summary>
         /// 지원형식 : 300KB 이하의 JPEG, PNG, GIF 형식의 파일 2048x2048 픽셀이하
         /// </summary>
@@ -173,6 +170,7 @@ namespace CoolSms
         public DateTime? SendAt { get; set; }
         /// <summary>
         /// LMS, MMS 일때 제목(40바이트)
+        /// 만약 LMS, MMS일 때 지정되지 않을 경우 본문중 40바이트가 제목으로 사용됩니다.
         /// </summary>
         [JsonProperty(PropertyName = "subject")]
         public string Subject { get; set; }
@@ -259,7 +257,7 @@ namespace CoolSms
                     throw new ArgumentNullException(nameof(to));
                 }
                 if (string.IsNullOrEmpty(text) == false
-                    && Encoding.UTF8.GetByteCount(text) > MaximumTextBytes)
+                    && MessageTypeUtils.GetSmsTextLength(text) > MaximumTextBytes)
                 {
                     throw new ArgumentOutOfRangeException(nameof(text), $"text should not be longer than {MaximumTextBytes} bytes.");
                 }
@@ -290,9 +288,7 @@ namespace CoolSms
             [JsonConverter(typeof(StringEnumConverter))]
             public MessageType? Type => string.IsNullOrEmpty(Text)
                 ? (MessageType?)null
-                : (Encoding.UTF8.GetByteCount(Text) > 80
-                ? MessageType.LMS
-                : MessageType.SMS);
+                : MessageTypeUtils.GetMessageType(Text);
             /// <summary>
             /// 한국: 82, 일본: 81, 중국: 86, 미국: 1, 기타 등등(기본 한국)
             /// </summary>
