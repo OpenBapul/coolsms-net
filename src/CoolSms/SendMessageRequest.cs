@@ -78,6 +78,9 @@ namespace CoolSms
             To = to;
             Text = text;
             From = from;
+            Type = string.IsNullOrEmpty(Text)
+                ? MessageType.SMS
+                : MessageTypeUtils.GetMessageType(Text);
         }
 
         /// <summary>
@@ -133,9 +136,7 @@ namespace CoolSms
         /// </summary>
         [JsonProperty(PropertyName = "type")]
         [JsonConverter(typeof(StringEnumConverter))]
-        public MessageType Type => (ImageFile != null && ImageFile.Length > 0)
-            ? MessageTypeUtils.GetMessageType(Text)
-            : MessageType.SMS;
+        public MessageType Type { get; set; }
         /// <summary>
         /// 지원형식 : 300KB 이하의 JPEG, PNG, GIF 형식의 파일 2048x2048 픽셀이하
         /// </summary>
@@ -263,6 +264,9 @@ namespace CoolSms
                 }
                 To = to;
                 Text = text;
+                Type = string.IsNullOrEmpty(Text)
+                ? (MessageType?)null
+                : MessageTypeUtils.GetMessageType(Text);
             }
 
             /// <summary>
@@ -286,15 +290,13 @@ namespace CoolSms
             /// </summary>
             [JsonProperty(PropertyName = "type")]
             [JsonConverter(typeof(StringEnumConverter))]
-            public MessageType? Type => string.IsNullOrEmpty(Text)
-                ? (MessageType?)null
-                : MessageTypeUtils.GetMessageType(Text);
+            public MessageType? Type { get; set; }
             /// <summary>
             /// 한국: 82, 일본: 81, 중국: 86, 미국: 1, 기타 등등(기본 한국)
             /// </summary>
             /// <see href="http://countrycode.org"/> 참고
             [JsonProperty(PropertyName = "country")]
-            public string CountryCode { get; set; }
+            public string CountryCode { get; set; } = "82";
             /// <summary>
             /// 예약시간을 YYYYMMDDHHMISS 포맷으로 입력(입력 없거나 지난날짜를 입력하면 바로 전송) 예) 20131216090510 (2013년 12월 16일 9시 5분 10초에 발송되도록 예약)
             /// </summary>
