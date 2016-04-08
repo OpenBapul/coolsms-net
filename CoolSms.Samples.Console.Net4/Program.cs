@@ -1,6 +1,6 @@
-﻿namespace CoolSms.Samples.Console.Core
+﻿namespace CoolSms.Samples.Console.Net4
 {
-    public class Program
+    class Program
     {
         static void Main(string[] args)
         {

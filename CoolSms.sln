@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6F718F51-F605-43EF-9884-72576BEFAF0F}"
 	ProjectSection(SolutionItems) = preProject
@@ -17,6 +17,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{FE105021-AC1B-46F6-9DB8-9DFD8A5B4D59}"
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "CoolSms.Samples.Console.Core", "samples\CoolSms.Samples.Console.Core\CoolSms.Samples.Console.Core.xproj", "{200EB2E4-6F41-4748-895F-5046081AB450}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoolSms.Samples.Console.Net4", "CoolSms.Samples.Console.Net4\CoolSms.Samples.Console.Net4.csproj", "{1F735858-5F34-4D33-AF48-CBC564245626}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,11 +38,16 @@ Global
 		{200EB2E4-6F41-4748-895F-5046081AB450}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{200EB2E4-6F41-4748-895F-5046081AB450}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{200EB2E4-6F41-4748-895F-5046081AB450}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F735858-5F34-4D33-AF48-CBC564245626}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F735858-5F34-4D33-AF48-CBC564245626}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F735858-5F34-4D33-AF48-CBC564245626}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F735858-5F34-4D33-AF48-CBC564245626}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{200EB2E4-6F41-4748-895F-5046081AB450} = {FE105021-AC1B-46F6-9DB8-9DFD8A5B4D59}
+		{1F735858-5F34-4D33-AF48-CBC564245626} = {FE105021-AC1B-46F6-9DB8-9DFD8A5B4D59}
 	EndGlobalSection
 EndGlobal
