@@ -1,6 +1,7 @@
 -
   image: Visual Studio 2017
   version: build{build}-ci
+  skip_branch_with_pr: true
   configuration: Debug
   before_build:
   - cmd: dotnet restore
