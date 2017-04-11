@@ -11,7 +11,7 @@ build_script:
 - ps: >-
     if ([string]::IsNullOrEmpty($env:APPVEYOR_REPO_BRANCH)) {
       $env:CONFIGURATION="DEBUG"
-    } else if ($env:APPVEYOR_REPO_BRANCH -eq "master") {
+    } elseif ($env:APPVEYOR_REPO_BRANCH -eq "master") {
       $env:CONFIGURATION="RELEASE"
     } else {
       $env:CONFIGURATION="DEBUG"
