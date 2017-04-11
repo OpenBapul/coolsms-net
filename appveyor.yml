@@ -1,48 +1,52 @@
--
-  version: build{build}
-  branches:
-    only:
-    - master
-  configuration: Release
-  platform: Any CPU
-  install:
-  - cmd: set PATH=C:\Program Files (x86)\MSBuild\14.0\Bin;%PATH%
-  - cmd: dnvm install 1.0.0-rc1-final
-  before_build:
-  - cmd: dnu restore -f https://www.myget.org/F/aspnet-contrib/api/v3/index.json
-  build:
-    verbosity: minimal
-  test_script:
-  - cmd: dnu restore test -f https://www.myget.org/F/aspnet-contrib/api/v3/index.json
-  - cmd: cd test\CoolSms.Tests
-  - cmd: dnx test
-  artifacts:
-  - path: '**\CoolSms\**\*.nupkg'
-    name: NuGet
-  deploy:
-  - provider: NuGet
-    api_key:
-      secure: sromj9mN3Uv8dh0Lpb+0/ywpACJM6NPxfCJbBL6AxxWcvxacnAGsvUc68T8ptY2+
-  skip_commits:
-    message: /((Update|Create) .*\.(md|png|jpg|jpeg|bmp|gif))|Create appveyor.yml/
-
--
-  version: build{build}-dev
-  branches:
-    except:
-    - master
-  configuration: Debug
-  platform: Any CPU
-  install:
-  - cmd: set PATH=C:\Program Files (x86)\MSBuild\14.0\Bin;%PATH%
-  - cmd: dnvm install 1.0.0-rc1-final
-  before_build:
-  - cmd: dnu restore -f https://www.myget.org/F/aspnet-contrib/api/v3/index.json
-  build:
-    verbosity: minimal
-  test_script:
-  - cmd: dnu restore test -f https://www.myget.org/F/aspnet-contrib/api/v3/index.json
-  - cmd: cd test\CoolSms.Tests
-  - cmd: dnx test
-  skip_commits:
-    message: /((Update|Create) .*\.(md|png|jpg|jpeg|bmp|gif))|Create appveyor.yml/
+image: Visual Studio 2017
+version: build{build}
+skip_branch_with_pr: true
+build_script:
+- cmd: >-
+    REM master-build
+    ECHO Configuration: %CONFIGURATION%
+    ECHO Branch: %APPVEYOR_REPO_BRANCH%
+    ECHO HasTag: %APPVEYOR_REPO_TAG%
+    ECHO PR Number: %APPVEYOR_PULL_REQUEST_NUMBER%
+- ps: >-
+    if ($env:APPVEYOR_REPO_BRANCH -eq "master") {
+      $env:CONFIGURATION="RELEASE"
+    } else {
+      $env:CONFIGURATION="DEBUG"
+    }
+    Write-Host "Configuration: $($env:CONFIGURATION)"
+- cmd: 'dotnet restore'
+- cmd: 'dotnet build -c %CONFIGURATION%'
+test_script:
+- cmd: cd test\CoolSms.Tests
+- cmd: dotnet test
+after_test:
+- ps: >-
+    if ([string]::IsNullOrEmpty($env:APPVEYOR_PULL_REQUEST_NUMBER)) {
+      if ($env:APPVEYOR_REPO_BRANCH -eq "master") {
+        dotnet pack -c $env:CONFIGURATION --no-build
+      } else {
+        dotnet pack -c $env:CONFIGURATION --version-suffix dev$:APPVEYOR_BUILD_NUMBER --no-build
+      }
+    }
+    else
+    {
+      Write-Host "Skip pack"
+    }
+artifacts:
+- path: '**\*.nupkg'
+  name: NuGet
+deploy:
+- provider: NuGet
+  api_key:
+    secure: sromj9mN3Uv8dh0Lpb+0/ywpACJM6NPxfCJbBL6AxxWcvxacnAGsvUc68T8ptY2+
+  on:
+    branch: master
+- provider: NuGet
+  server: https://www.myget.org/F/bapul/api/v2/package
+  api_key:
+    secure: X8/Cm8f2M7FVtOuQftWgMlQv8XNMXJ8RbtVkeQkTgoaLb5Bv6Vf5KWcYZSEJ/wIc
+  on:
+    branch: dev
+skip_commits:
+  message: /((Update|Create) .*\.(md|png|jpg|jpeg|bmp|gif))|Create appveyor.yml/
