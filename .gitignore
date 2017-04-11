@@ -6,6 +6,7 @@
 *.user
 *.userosscache
 *.sln.docstates
+appsettings.local.json
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
@@ -234,3 +235,6 @@ _Pvt_Extensions
 
 # FAKE - F# Make
 .fake/
+
+# Visual Studio Code
+.vscode/

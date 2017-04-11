@@ -5,17 +5,14 @@
     - master
   configuration: Release
   platform: Any CPU
-  install:
-  - cmd: set PATH=C:\Program Files (x86)\MSBuild\14.0\Bin;%PATH%
-  - cmd: dnvm install 1.0.0-rc1-final
   before_build:
-  - cmd: dnu restore -f https://www.myget.org/F/aspnet-contrib/api/v3/index.json
+  - cmd: dotnet restore
+  - cmd: dotnet build
   build:
     verbosity: minimal
   test_script:
-  - cmd: dnu restore test -f https://www.myget.org/F/aspnet-contrib/api/v3/index.json
   - cmd: cd test\CoolSms.Tests
-  - cmd: dnx test
+  - cmd: dotnet test
   artifacts:
   - path: '**\CoolSms\**\*.nupkg'
     name: NuGet
@@ -33,16 +30,13 @@
     - master
   configuration: Debug
   platform: Any CPU
-  install:
-  - cmd: set PATH=C:\Program Files (x86)\MSBuild\14.0\Bin;%PATH%
-  - cmd: dnvm install 1.0.0-rc1-final
   before_build:
-  - cmd: dnu restore -f https://www.myget.org/F/aspnet-contrib/api/v3/index.json
+  - cmd: dotnet restore
+  - cmd: dotnet build
   build:
     verbosity: minimal
   test_script:
-  - cmd: dnu restore test -f https://www.myget.org/F/aspnet-contrib/api/v3/index.json
   - cmd: cd test\CoolSms.Tests
-  - cmd: dnx test
+  - cmd: dotnet test
   skip_commits:
     message: /((Update|Create) .*\.(md|png|jpg|jpeg|bmp|gif))|Create appveyor.yml/
