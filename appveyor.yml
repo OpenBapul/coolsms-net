@@ -9,7 +9,9 @@ build_script:
     ECHO HasTag: %APPVEYOR_REPO_TAG%
     ECHO PR Number: %APPVEYOR_PULL_REQUEST_NUMBER%
 - ps: >-
-    if ($env:APPVEYOR_REPO_BRANCH -eq "master") {
+    if ([string]::IsNullOrEmpty($env:APPVEYOR_REPO_BRANCH)) {
+      $env:CONFIGURATION="DEBUG"
+    } else if ($env:APPVEYOR_REPO_BRANCH -eq "master") {
       $env:CONFIGURATION="RELEASE"
     } else {
       $env:CONFIGURATION="DEBUG"
@@ -28,6 +30,10 @@ after_test:
       } else {
         dotnet pack -c $env:CONFIGURATION --version-suffix dev$:APPVEYOR_BUILD_NUMBER --no-build
       }
+    }
+    else
+    {
+      Write-Host "Skip pack"
     }
 artifacts:
 - path: '**\*.nupkg'
