@@ -7,13 +7,13 @@
   skip_branch_with_pr: true
   configuration: Release
   build_script:
-  - cmd: REM master-build
-  - cmd: ECHO Configuration: %CONFIGURATION%
-  - cmd: ECHO Branch: %APPVEYOR_REPO_BRANCH%
-  - cmd: ECHO HasTag: %APPVEYOR_REPO_TAG%
-  - cmd: ECHO PR Number: %APPVEYOR_PULL_REQUEST_NUMBER%
-  - cmd: dotnet restore
-  - cmd: dotnet build -c %CONFIGURATION%
+  - cmd: 'REM master-build'
+  - cmd: 'ECHO Configuration: %CONFIGURATION%'
+  - cmd: 'ECHO Branch: %APPVEYOR_REPO_BRANCH%'
+  - cmd: 'ECHO HasTag: %APPVEYOR_REPO_TAG%'
+  - cmd: 'ECHO PR Number: %APPVEYOR_PULL_REQUEST_NUMBER%'
+  - cmd: 'dotnet restore'
+  - cmd: 'dotnet build -c %CONFIGURATION%'
   test_script:
   - cmd: cd test\CoolSms.Tests
   - cmd: dotnet test
@@ -35,13 +35,13 @@
   skip_branch_with_pr: true
   configuration: Debug
   build_script:
-  - cmd: REM ci-build
-  - cmd: ECHO Configuration: %CONFIGURATION%
-  - cmd: ECHO Branch: %APPVEYOR_REPO_BRANCH%
-  - cmd: ECHO HasTag: %APPVEYOR_REPO_TAG%
-  - cmd: ECHO PR Number: %APPVEYOR_PULL_REQUEST_NUMBER%
-  - cmd: dotnet restore
-  - cmd: dotnet build -c %CONFIGURATION%
+  - cmd: 'REM ci-build'
+  - cmd: 'ECHO Configuration: %CONFIGURATION%'
+  - cmd: 'ECHO Branch: %APPVEYOR_REPO_BRANCH%'
+  - cmd: 'ECHO HasTag: %APPVEYOR_REPO_TAG%'
+  - cmd: 'ECHO PR Number: %APPVEYOR_PULL_REQUEST_NUMBER%'
+  - cmd: 'dotnet restore'
+  - cmd: 'dotnet build -c %CONFIGURATION%'
   test_script:
   - cmd: cd test\CoolSms.Tests
   - cmd: dotnet test
