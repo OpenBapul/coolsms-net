@@ -10,12 +10,18 @@ build_script:
 - cmd: 'ECHO PR Number: %APPVEYOR_PULL_REQUEST_NUMBER%'
 - cmd: 'dotnet restore'
 - cmd: 'dotnet build -c %CONFIGURATION%'
-- ps: '$env:VersionSuffixCommand=({""},{" --version-suffix dev$($env:APPVEYOR_BUILD_NUMBER)"})[!($env:APPVEYOR_REPO_BRANCH -eq "master")]'
 test_script:
 - cmd: cd test\CoolSms.Tests
 - cmd: dotnet test
 after_test:
-- cmd: dotnet pack src\CoolSms -c %CONFIGURATION% %VersionSuffixCommand% --no-build
+- ps: >-
+    if ([string]::IsNullOrEmpty($env:APPVEYOR_REPO_BRANCH)) {
+      if ($env:APPVEYOR_REPO_BRANCH -eq "master") {
+        dotnet pack -c $env:CONFIGURATION --no-build
+      } else 
+        dotnet pack -c $env:CONFIGURATION --version-suffix dev$:APPVEYOR_BUILD_NUMBER --no-build
+      }
+    }
 artifacts:
 - path: '**\*.nupkg'
   name: NuGet
