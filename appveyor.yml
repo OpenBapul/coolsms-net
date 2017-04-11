@@ -1,4 +1,5 @@
 -
+  image: Visual Studio 2017
   version: build{build}
   branches:
     only:
@@ -7,7 +8,8 @@
   platform: Any CPU
   before_build:
   - cmd: dotnet restore
-  - cmd: dotnet build
+  - cmd: dotnet build -c $(CONFIGURATION)
+  - cmd: dotnet pack src\CoolSms -c $(CONFIGURATION)
   build:
     verbosity: minimal
   test_script:
@@ -24,6 +26,7 @@
     message: /((Update|Create) .*\.(md|png|jpg|jpeg|bmp|gif))|Create appveyor.yml/
 
 -
+  image: Visual Studio 2017
   version: build{build}-dev
   branches:
     except:
@@ -32,11 +35,16 @@
   platform: Any CPU
   before_build:
   - cmd: dotnet restore
-  - cmd: dotnet build
+  - cmd: dotnet build -c $(CONFIGURATION)
+  - cmd: dotnet pack src\CoolSms -c $(CONFIGURATION) --version-suffix dev$(BUILD)
   build:
     verbosity: minimal
   test_script:
   - cmd: cd test\CoolSms.Tests
   - cmd: dotnet test
+- provider: NuGet
+  server: https://www.myget.org/F/bapul/api/v2/package
+  api_key:
+    secure: X8/Cm8f2M7FVtOuQftWgMlQv8XNMXJ8RbtVkeQkTgoaLb5Bv6Vf5KWcYZSEJ/wIc
   skip_commits:
     message: /((Update|Create) .*\.(md|png|jpg|jpeg|bmp|gif))|Create appveyor.yml/
