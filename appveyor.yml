@@ -4,6 +4,7 @@
   branches:
     only:
     - master
+  skip_branch_with_pr: true
   configuration: Release
   before_build:
   - cmd: dotnet restore
@@ -30,6 +31,7 @@
   branches:
     only:
     - dev
+  skip_branch_with_pr: true
   configuration: Debug
   before_build:
   - cmd: dotnet restore
