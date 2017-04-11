@@ -1,26 +1,24 @@
--
-  image: Visual Studio 2017
-  version: build{build}
-  branches:
-    only:
-    - master
-  configuration: Release
-  before_build:
-  - cmd: dotnet restore
-  - cmd: dotnet build -c %CONFIGURATION%
-  - cmd: dotnet pack src\CoolSms -c %CONFIGURATION% --no-build
-  build:
-    verbosity: minimal
-  test_script:
-  - cmd: cd test\CoolSms.Tests
-  - cmd: dotnet test
-  artifacts:
-  - path: '**\CoolSms\**\*.nupkg'
-    name: NuGet
-  deploy:
-  - provider: NuGet
-    api_key:
-      secure: sromj9mN3Uv8dh0Lpb+0/ywpACJM6NPxfCJbBL6AxxWcvxacnAGsvUc68T8ptY2+
-  skip_commits:
-    message: /((Update|Create) .*\.(md|png|jpg|jpeg|bmp|gif))|Create appveyor.yml/
-  skip_branch_with_pr: true
+image: Visual Studio 2017
+version: build{build}
+branches:
+  only:
+  - master
+skip_branch_with_pr: true
+configuration: Release
+build_script:
+- cmd: dotnet restore
+- cmd: dotnet build -c %CONFIGURATION%
+test_script:
+- cmd: cd test\CoolSms.Tests
+- cmd: dotnet test
+artifacts:
+- path: '**\CoolSms\**\*.nupkg'
+  name: NuGet
+before_deploy:
+- cmd: dotnet pack src\CoolSms -c %CONFIGURATION% --no-build
+deploy:
+- provider: NuGet
+  api_key:
+    secure: sromj9mN3Uv8dh0Lpb+0/ywpACJM6NPxfCJbBL6AxxWcvxacnAGsvUc68T8ptY2+
+skip_commits:
+  message: /((Update|Create) .*\.(md|png|jpg|jpeg|bmp|gif))|Create appveyor.yml/
