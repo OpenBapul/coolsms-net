@@ -43,31 +43,3 @@
       secure: sromj9mN3Uv8dh0Lpb+0/ywpACJM6NPxfCJbBL6AxxWcvxacnAGsvUc68T8ptY2+
   skip_commits:
     message: /((Update|Create) .*\.(md|png|jpg|jpeg|bmp|gif))|Create appveyor.yml/
-
--
-  image: Visual Studio 2017
-  version: build{build}-dev
-  branches:
-    only:
-    - dev
-  skip_branch_with_pr: true
-  configuration: Debug
-  before_build:
-  - cmd: dotnet restore
-  - cmd: dotnet build -c %CONFIGURATION%
-  - cmd: dotnet pack src\CoolSms -c %CONFIGURATION% --version-suffix dev%APPVEYOR_BUILD_NUMBER% --no-build
-  build:
-    verbosity: minimal
-  test_script:
-  - cmd: cd test\CoolSms.Tests
-  - cmd: dotnet test
-  artifacts:
-  - path: '**\CoolSms\**\*.nupkg'
-    name: NuGet
-  deploy:
-  - provider: NuGet
-    server: https://www.myget.org/F/bapul/api/v2/package
-    api_key:
-      secure: X8/Cm8f2M7FVtOuQftWgMlQv8XNMXJ8RbtVkeQkTgoaLb5Bv6Vf5KWcYZSEJ/wIc
-  skip_commits:
-    message: /((Update|Create) .*\.(md|png|jpg|jpeg|bmp|gif))|Create appveyor.yml/
