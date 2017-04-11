@@ -1,13 +1,20 @@
 image: Visual Studio 2017
 version: build{build}
 skip_branch_with_pr: true
-configuration: Release
 build_script:
-- cmd: 'REM master-build'
-- cmd: 'ECHO Configuration: %CONFIGURATION%'
-- cmd: 'ECHO Branch: %APPVEYOR_REPO_BRANCH%'
-- cmd: 'ECHO HasTag: %APPVEYOR_REPO_TAG%'
-- cmd: 'ECHO PR Number: %APPVEYOR_PULL_REQUEST_NUMBER%'
+- cmd: >-
+    'REM master-build'
+    'ECHO Configuration: %CONFIGURATION%'
+    'ECHO Branch: %APPVEYOR_REPO_BRANCH%'
+    'ECHO HasTag: %APPVEYOR_REPO_TAG%'
+    'ECHO PR Number: %APPVEYOR_PULL_REQUEST_NUMBER%'
+- ps: >-
+    if ($env:APPVEYOR_REPO_BRANCH -eq "master") {
+      $env:CONFIGURATION="RELEASE"
+    } else {
+      $env:CONFIGURATION="DEBUG"
+    }
+    Write-Host "Configuration: $($env:CONFIGURATION)"
 - cmd: 'dotnet restore'
 - cmd: 'dotnet build -c %CONFIGURATION%'
 test_script:
@@ -18,7 +25,7 @@ after_test:
     if ([string]::IsNullOrEmpty($env:APPVEYOR_REPO_BRANCH)) {
       if ($env:APPVEYOR_REPO_BRANCH -eq "master") {
         dotnet pack -c $env:CONFIGURATION --no-build
-      } else 
+      } else {
         dotnet pack -c $env:CONFIGURATION --version-suffix dev$:APPVEYOR_BUILD_NUMBER --no-build
       }
     }
