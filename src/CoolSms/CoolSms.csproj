@@ -3,7 +3,7 @@
     <Description>CoolSms SMS API의 닷넷 클라이언트</Description>
     <Copyright>Copyright 2016</Copyright>
     <AssemblyTitle>CoolSMS API .NET Client</AssemblyTitle>
-    <Version>1.1.0</Version>
+    <VersionPrefix>1.1.0</VersionPrefix>
     <Authors>gongdo;Bapul</Authors>
     <TargetFrameworks>net45;net451;netstandard1.3</TargetFrameworks>
     <AssemblyName>CoolSms</AssemblyName>
