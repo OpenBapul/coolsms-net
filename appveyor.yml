@@ -9,7 +9,7 @@
   before_build:
   - cmd: dotnet restore
   - cmd: dotnet build -c %CONFIGURATION%
-  - cmd: dotnet pack src\CoolSms -c %CONFIGURATION%
+  - cmd: dotnet pack src\CoolSms -c %CONFIGURATION% --no-build
   build:
     verbosity: minimal
   test_script:
@@ -36,7 +36,7 @@
   before_build:
   - cmd: dotnet restore
   - cmd: dotnet build -c %CONFIGURATION%
-  - cmd: dotnet pack src\CoolSms -c %CONFIGURATION% --version-suffix dev%BUILD%
+  - cmd: dotnet pack src\CoolSms -c %CONFIGURATION% --version-suffix dev%BUILD% --no-build
   build:
     verbosity: minimal
   test_script:
