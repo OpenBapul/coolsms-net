@@ -9,9 +9,7 @@ build_script:
     ECHO HasTag: %APPVEYOR_REPO_TAG%
     ECHO PR Number: %APPVEYOR_PULL_REQUEST_NUMBER%
 - ps: >-
-    if ([string]::IsNullOrEmpty($env:APPVEYOR_REPO_BRANCH)) {
-      $env:CONFIGURATION="DEBUG"
-    } elseif ($env:APPVEYOR_REPO_BRANCH -eq "master") {
+    if ([string]::IsNullOrEmpty($env:APPVEYOR_PULL_REQUEST_NUMBER) -and ($env:APPVEYOR_REPO_BRANCH -eq "master")) {
       $env:CONFIGURATION="RELEASE"
     } else {
       $env:CONFIGURATION="DEBUG"
@@ -24,7 +22,7 @@ test_script:
 - cmd: dotnet test
 after_test:
 - ps: >-
-    if ([string]::IsNullOrEmpty($env:APPVEYOR_REPO_BRANCH)) {
+    if ([string]::IsNullOrEmpty($env:APPVEYOR_PULL_REQUEST_NUMBER)) {
       if ($env:APPVEYOR_REPO_BRANCH -eq "master") {
         dotnet pack -c $env:CONFIGURATION --no-build
       } else {
