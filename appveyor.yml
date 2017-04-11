@@ -42,9 +42,13 @@
   test_script:
   - cmd: cd test\CoolSms.Tests
   - cmd: dotnet test
-- provider: NuGet
-  server: https://www.myget.org/F/bapul/api/v2/package
-  api_key:
-    secure: X8/Cm8f2M7FVtOuQftWgMlQv8XNMXJ8RbtVkeQkTgoaLb5Bv6Vf5KWcYZSEJ/wIc
+  artifacts:
+  - path: '**\CoolSms\**\*.nupkg'
+    name: NuGet
+  deploy:
+  - provider: NuGet
+    server: https://www.myget.org/F/bapul/api/v2/package
+    api_key:
+      secure: X8/Cm8f2M7FVtOuQftWgMlQv8XNMXJ8RbtVkeQkTgoaLb5Bv6Vf5KWcYZSEJ/wIc
   skip_commits:
     message: /((Update|Create) .*\.(md|png|jpg|jpeg|bmp|gif))|Create appveyor.yml/
