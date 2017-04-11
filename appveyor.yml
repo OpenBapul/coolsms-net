@@ -3,11 +3,11 @@ version: build{build}
 skip_branch_with_pr: true
 build_script:
 - cmd: >-
-    'REM master-build'
-    'ECHO Configuration: %CONFIGURATION%'
-    'ECHO Branch: %APPVEYOR_REPO_BRANCH%'
-    'ECHO HasTag: %APPVEYOR_REPO_TAG%'
-    'ECHO PR Number: %APPVEYOR_PULL_REQUEST_NUMBER%'
+    REM master-build
+    ECHO Configuration: %CONFIGURATION%
+    ECHO Branch: %APPVEYOR_REPO_BRANCH%
+    ECHO HasTag: %APPVEYOR_REPO_TAG%
+    ECHO PR Number: %APPVEYOR_PULL_REQUEST_NUMBER%
 - ps: >-
     if ($env:APPVEYOR_REPO_BRANCH -eq "master") {
       $env:CONFIGURATION="RELEASE"
