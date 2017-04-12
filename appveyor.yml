@@ -1,7 +1,6 @@
 image: Visual Studio 2017
 version: build{build}
 build_script:
-- cmd: 'REM master-build'
 - cmd: 'ECHO Configuration: %CONFIGURATION%'
 - cmd: 'ECHO Branch: %APPVEYOR_REPO_BRANCH%'
 - cmd: 'ECHO HasTag: %APPVEYOR_REPO_TAG%'
@@ -25,11 +24,13 @@ after_test:
         dotnet pack src\CoolSms -c $env:CONFIGURATION --no-build
       } elseif ($env:APPVEYOR_REPO_BRANCH -eq "dev") {
         dotnet pack src\CoolSms -c $env:CONFIGURATION --version-suffix dev$:APPVEYOR_BUILD_NUMBER --no-build
+      } else {
+          Write-Host "Skip pack"
       }
     }
     else
     {
-      Write-Host "Skip pack"
+      Write-Host "Skip pack - pull request"
     }
 artifacts:
 - path: '**\*.nupkg'
