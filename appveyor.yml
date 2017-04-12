@@ -24,7 +24,7 @@ after_test:
       if ($env:APPVEYOR_REPO_BRANCH -eq "master") {
         dotnet pack src\CoolSms -c $env:CONFIGURATION --no-build
       } elseif ($env:APPVEYOR_REPO_BRANCH -eq "dev") {
-        dotnet pack src\CoolSms -c $env:CONFIGURATION --version-suffix dev$:APPVEYOR_BUILD_NUMBER --no-build
+        dotnet pack src\CoolSms -c $env:CONFIGURATION --version-suffix dev$env:APPVEYOR_BUILD_NUMBER --no-build
       } else {
           Write-Host "Skip pack"
       }
