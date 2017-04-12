@@ -17,6 +17,7 @@ build_script:
 test_script:
 - cmd: cd test\CoolSms.Tests
 - cmd: dotnet test
+- cmd: cd ..\..
 after_test:
 - ps: >-
     if ([string]::IsNullOrEmpty($env:APPVEYOR_PULL_REQUEST_NUMBER)) {
