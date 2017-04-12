@@ -50,11 +50,7 @@ namespace CoolSms
 
         private string UrlEncode(string value)
         {
-#if NET40
-            return Uri.EscapeUriString(value);
-#else
             return System.Net.WebUtility.UrlEncode(value);
-#endif
         }
     }
 }

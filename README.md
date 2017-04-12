@@ -7,7 +7,7 @@
 
 ## Status
 
-[![Build status](https://ci.appveyor.com/api/projects/status/vrmer2hympk7f5kd?svg=true)](https://ci.appveyor.com/project/incombine/coolsms-net)
+[![Build status](https://ci.appveyor.com/api/projects/status/s6gb0cl20td2pc8g/branch/master?svg=true)](https://ci.appveyor.com/project/gongdo/coolsms-net/branch/master)
 
 ## QuickStart
 
@@ -42,6 +42,11 @@ var result = await api.SendMessageAsync(request);
 ```
 var result = await api.SendMessageAsync("01000000000", "헬로 뭐시기");
 ```
+
+> **NOTE**
+> 메시지 길이가 80byte를 넘으면 자동으로 LMS로 전송합니다.
+> 글자의 길이는 ANSI code 127보다 큰 글자는 2byte, 그 이하는 1byte로 계산합니다.
+> LMS/MMS로 전송할 경우 제목(`Subject`)를 설정하지 않으면 본문중 일부가 자동으로 들어갑니다.
 
 ### 문자 메시지의 목록 조회
 [GET Sent API](http://www.coolsms.co.kr/SMS_API#GETsent) 기능을 구현합니다.
