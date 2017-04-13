@@ -39,13 +39,13 @@ artifacts:
 deploy:
 - provider: NuGet
   api_key:
-    secure: sromj9mN3Uv8dh0Lpb+0/ywpACJM6NPxfCJbBL6AxxWcvxacnAGsvUc68T8ptY2+
+    secure: OdlepcT+ry0jb8FB3n6AQV23YA5/TtBC572OTrE/oLiKuMu807Re9Pqo78fYXbNI
   on:
     branch: master
 - provider: NuGet
   server: https://www.myget.org/F/bapul/api/v2/package
   api_key:
-    secure: OdlepcT+ry0jb8FB3n6AQV23YA5/TtBC572OTrE/oLiKuMu807Re9Pqo78fYXbNI
+    secure: X8/Cm8f2M7FVtOuQftWgMlQv8XNMXJ8RbtVkeQkTgoaLb5Bv6Vf5KWcYZSEJ/wIc
   on:
     branch: dev
 skip_commits:
