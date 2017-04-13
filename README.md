@@ -3,8 +3,6 @@
 
 가장 기초적인 문자 메시지 전송과 전송 내역 확인 API만 구현하였습니다.
 
-테스트 케이스가 심히 미흡합니다. 아직 프로덕션 레벨은 아니니 본인의 환경에서 충분히 테스트 바랍니다.
-
 ## Status
 
 [![Build status](https://ci.appveyor.com/api/projects/status/s6gb0cl20td2pc8g/branch/master?svg=true)](https://ci.appveyor.com/project/gongdo/coolsms-net/branch/master)
