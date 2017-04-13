@@ -45,7 +45,7 @@ deploy:
 - provider: NuGet
   server: https://www.myget.org/F/bapul/api/v2/package
   api_key:
-    secure: X8/Cm8f2M7FVtOuQftWgMlQv8XNMXJ8RbtVkeQkTgoaLb5Bv6Vf5KWcYZSEJ/wIc
+    secure: OdlepcT+ry0jb8FB3n6AQV23YA5/TtBC572OTrE/oLiKuMu807Re9Pqo78fYXbNI
   on:
     branch: dev
 skip_commits:
