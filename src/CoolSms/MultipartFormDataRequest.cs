@@ -50,7 +50,7 @@ namespace CoolSms
             }
             foreach (var item in StreamContents)
             {
-                content.Add(item.Value, item.Key);
+                content.Add(item.Value, item.Key, "image.jpg");
             }
             message.Content = content;
             return message;

@@ -4,6 +4,7 @@ using System;
 using System.IO;
 using System.Net.Http;
 using System.Collections.Generic;
+using System.Net.Http.Headers;
 
 namespace CoolSms
 {
@@ -36,8 +37,10 @@ namespace CoolSms
         /// <returns>메시지 전송 요청</returns>
         public static SendMessageRequest CraeteTest(string text)
         {
-            var request = new SendMessageRequest(TestRecipient, text);
-            request.IsTestMode = true;
+            var request = new SendMessageRequest(TestRecipient, text)
+            {
+                IsTestMode = true
+            };
             return request;
         }
 
@@ -78,9 +81,6 @@ namespace CoolSms
             To = to;
             Text = text;
             From = from;
-            Type = string.IsNullOrEmpty(Text)
-                ? MessageType.SMS
-                : MessageTypeUtils.GetMessageType(Text);
         }
 
         /// <summary>
@@ -105,7 +105,10 @@ namespace CoolSms
                 }
                 if (ImageFile != null)
                 {
-                    value.Add("image", new StreamContent(ImageFile));
+
+                    var image = new StreamContent(ImageFile);
+                    image.Headers.ContentType = MediaTypeHeaderValue.Parse("multipart/form-data");
+                    value.Add("image", image);
                 }
                 return value;
             }
@@ -132,7 +135,11 @@ namespace CoolSms
         /// </summary>
         [JsonProperty(PropertyName = "type")]
         [JsonConverter(typeof(StringEnumConverter))]
-        public MessageType Type { get; set; }
+        public MessageType Type => string.IsNullOrEmpty(Text)
+                ? MessageType.SMS
+                : ImageFile == null
+                ? MessageTypeUtils.GetMessageType(Text)
+                : MessageType.MMS;
         /// <summary>
         /// 지원형식 : 300KB 이하의 JPEG, PNG, GIF 형식의 파일 2048x2048 픽셀이하
         /// </summary>

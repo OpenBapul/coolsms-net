@@ -1,4 +1,5 @@
 ﻿using CoolSms;
+using System.IO;
 using System.Net.Http;
 using Xunit;
 
@@ -29,18 +30,20 @@ namespace CoolSmsTests
         [InlineData("가", MessageType.SMS)]
         [InlineData("abcd가나다라!@#$", MessageType.SMS)]
         [InlineData("123456789012345678901234567890123456789012345678901234567890123456789012345678901", MessageType.LMS)]
-        public void Type_should_be_set(string text, MessageType expected)
+        public void Type_should_be_expected(string text, MessageType expected)
         {
             var request = new SendMessageRequest("1234", text);
             Assert.Equal(expected, request.Type);
         }
 
         [Fact]
-        public void Type_can_be_changed()
+        public void Type_should_be_MMS_when_image_set()
         {
-            var request = new SendMessageRequest("1234", "1234");
-            request.Type = MessageType.LMS;
-            Assert.Equal(MessageType.LMS, request.Type);
+            var request = new SendMessageRequest("1234", "1234")
+            {
+                ImageFile = new MemoryStream()
+            };
+            Assert.Equal(MessageType.MMS, request.Type);
         }
     }
 }
